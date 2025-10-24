@@ -85,3 +85,5 @@ const sendOtp = async (req,res) => {
     res.status(StatusCodes.OK).json({msg : "OTP sent successfully"});
 }
 
+export {verifyOtp,sendOtp};
+

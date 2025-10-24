@@ -90,3 +90,5 @@ async function verifySignature(signature, payload, publicKey) {
 
   return signatureVerified;
 }
+
+export {uploadBiometrics,verifyBiometrics}
