@@ -1,5 +1,7 @@
-import {statusCodes} from 'http-status-codes';
+import pkg from 'http-status-codes';
 import CustomAPIError from './custom-api.js';
+
+const { statusCodes } = pkg;
 
 class BadRequestError extends CustomAPIError {
     constructor(message) {

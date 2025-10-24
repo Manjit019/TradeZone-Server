@@ -5,12 +5,13 @@ import {createServer}  from 'http';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 import cors from 'cors';
-import connectDB from './config/connect';
+import connectDB from './config/connect.js';
 import authRouter from './routes/auth.js';
-import {dirname} from 'path';
+import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
+import { home } from './controllers/home.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,9 +23,7 @@ app.use(express.json());
 
 const httpServer = createServer(app);
 
-app.get('/',(req,res)=>{
-    res.send('<h1>TradeZone API </h1> &nbsp; <a href="/api-docs">Documentation </a>');
-});
+app.get('/',home);
 
 //Swagger API Docs
 

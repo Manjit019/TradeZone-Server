@@ -1,7 +1,7 @@
 
 import User from '../../models/user.js'
 import { StatusCodes } from 'http-status-codes'
-import { BadRequestError } from '../../errors'
+import { BadRequestError } from '../../errors/index.js'
 import { generateOTP } from '../../services/mailSender.js'
 import OTP from '../../models/otp.js'
 

@@ -5,7 +5,7 @@ import {
   BadRequestError,
   NotFoundError,
   UnauthenticatedError,
-} from "../../errors";
+} from "../../errors/index.js";
 import bcrypt from "bcryptjs";
 
 const updateProfile = async (req, res) => {

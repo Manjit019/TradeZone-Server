@@ -1,9 +1,8 @@
 import User from "../../models/user.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError, UnauthenticatedError } from "../../errors";
+import { BadRequestError, UnauthenticatedError } from "../../errors/index.js";
 import jwt from "jsonwebtoken";
 import NodeRSA from "node-rsa";
-import { use } from "react";
 
 const uploadBiometrics = async (req, res) => {
   const { public_key } = req.body;
