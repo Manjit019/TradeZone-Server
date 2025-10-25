@@ -1,4 +1,4 @@
-import User from "../../models/user.js";
+import User from "../../models/User.js";
 import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
 import {
@@ -23,7 +23,7 @@ const updateProfile = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
     new: true,
     runValidators: true,
-    select: "-password -biometricKey",
+    select: "-password -biometricKey -login_pin",
   });
 
   if (!updatedUser) {
@@ -87,7 +87,8 @@ const setLoginPinFirst = async (req, res) => {
 
 const verifyPin = async (req, res) => {
   const { login_pin } = req.body;
-  if (!login_pin || login_pin !== 4) {
+
+  if (!login_pin || login_pin.length !== 4) {
     throw new BadRequestError("Login pin must be 4 digits.");
   }
   const accessToken = req.headers.authorization.split(" ")[1];

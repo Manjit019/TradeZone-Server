@@ -8,14 +8,14 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
+            padding: 2px;
             margin: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .wrapper-container {
             background-color: rgba(255, 255, 255, 0.95);
-            padding: 20px;
+            padding: 10px;
             border-radius: 15px;
             backdrop-filter: blur(10px);
         }
@@ -24,8 +24,8 @@
             max-width: 600px;
             margin: 0 auto;
             background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            padding: 30px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
@@ -68,7 +68,7 @@
         .otp-code {
             font-size: 28px;
             color: #2c3e50;
-            font-weight: bold;
+            font-weight: bolder;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -137,34 +137,35 @@
                 <h1 class="logo-text">TradeZone</h1>
                 <p class="tagline">Your Gateway to Smart Trading</p>
             </div>
-            
-            <div class="otp-container">
-                <p style="text-align: center; font-size: 18px; color: #7f8c8d; margin-bottom: 15px;">
-                    Your One-Time Password
-                </p>
-                <p class="otp-code" style="margin: 0;">TradeZone_otp</p>
-            </div>
+
+
 
             <div class="otp-section">
                 <div>
                     <p>Hello Trader,</p>
-                    <p>Your one-time password (OTP) for TradeZone is :</p>
-                    
-                    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin: 20px 0;">
-                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #667eea;">TradeZone_otp2</p>
+                    <p>Your one-time password (OTP) for TradeZone is shown below. Please use it to complete your
+                        {{OTP_TYPE}} verification.</p>
+
+
+                    <div class="otp-container">
+                        <p style="text-align: center; font-size: 18px; color: #7f8c8d; margin-bottom: 15px;">
+                            Your One Time Password
+                        </p>
+                        <p class="otp-code" style="margin: 0;">{{OTP}}</p>
                     </div>
 
                     <p><strong>Important:</strong></p>
-                    <ul style="color: #2c3e50; line-height: 1.6;">
+                    <ul style="color: #2c3e50; line-height: 1.6; font-size: 16px;">
                         <li>This OTP is valid for 15 minutes only</li>
                         <li>Use it only once to access your account</li>
                         <li>Never share this OTP with anyone</li>
                     </ul>
 
                     <p>Copy and paste the above OTP to securely log in to your TradeZone account.</p>
-                    
-                    <p>Need help? Visit our <a href="https://tradezone.com/help" style="color: #667eea; text-decoration: none;">Help Center</a> for support.</p>
-                    
+
+                    <p>Need help? Visit our <a href="https://tradezone.com/help"
+                            style="color: #667eea; text-decoration: none;">Help Center</a> for support.</p>
+
                     <p>Happy Trading!</p>
                     <div style="display: flex; flex-direction: row; align-items: center; margin-top: 20px;">
                         <p style="margin: 0; color: #667eea; font-weight: bold;">Team TradeZone</p>
@@ -172,12 +173,13 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
             <div class="company-info">
-                <p id="footer-text" style="margin: 0; font-weight: bold; color: #2c3e50;">TradeZone - Empowering Smart Traders</p>
+                <p id="footer-text" style="margin: 0; font-weight: bold; color: #2c3e50;">TradeZone - Empowering Smart
+                    Traders</p>
             </div>
-            
+
             <p id="footer-text">Stay connected with us:</p>
             <div class="social-links">
                 <a href="https://TradeZone.com/youtube">YouTube</a> |
@@ -186,16 +188,18 @@
                 <a href="https://TradeZone.com/linkedin">LinkedIn</a> |
                 <a href="https://TradeZone.com/instagram">Instagram</a>
             </div>
-            
+
             <p id="footer-text">ⓒ 2024 TradeZone Technologies Inc. All rights reserved.</p>
             <p id="footer-text">
-                <a href="https://TradeZone.com/about" style="color: #667eea;">About Us</a> | 
-                <a href="https://TradeZone.com/terms" style="color: #667eea;">Terms & Conditions</a> | 
+                <a href="https://TradeZone.com/about" style="color: #667eea;">About Us</a> |
+                <a href="https://TradeZone.com/terms" style="color: #667eea;">Terms & Conditions</a> |
                 <a href="https://TradeZone.com/privacy" style="color: #667eea;">Privacy Policy</a>
             </p>
             <p id="footer-text">123 Trading Plaza, Financial District, NY 10001</p>
-            <p id="footer-text">This is an automated email from TradeZone. You received this because you requested account access.</p>
-            <p id="footer-text">Questions? Visit our <a href="https://TradeZone.com/help" style="color: #667eea;">Help Center</a> or contact support.</p>
+            <p id="footer-text">This is an automated email from TradeZone. You received this because you requested
+                account access.</p>
+            <p id="footer-text">Questions? Visit our <a href="https://TradeZone.com/help" style="color: #667eea;">Help
+                    Center</a> or contact support.</p>
         </div>
     </div>
 </body>

@@ -1,4 +1,4 @@
-import User from "../../models/user.js";
+import User from "../../models/User.js";
 import { StatusCodes } from "http-status-codes";
 import {
   BadRequestError,
@@ -24,7 +24,8 @@ const register = async (req, res) => {
       throw new BadRequestError("Invalid register token");
     }
 
-    const newUser = new User.create({ email, password });
+    const newUser = await User.create({ email, password });
+
     const access_token = newUser.createAccessToken();
     const refresh_token = newUser.createRefreshToken();
     res.status(StatusCodes.CREATED).json({
@@ -44,7 +45,7 @@ const login = async (req, res) => {
     throw new BadRequestError("Please provide all values");
   }
 
-  const user = await User.find({ emaill });
+  const user = await User.findOne({ email });
   if (!user) {
     throw new UnauthenticatedError("Invalid credentials");
   }
@@ -53,16 +54,16 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     let message;
     if (
-      user.blocked_until_password &&
-      user.blocked_until_password > new Date()
+      user.block_until_password &&
+      user.block_until_password > new Date()
     ) {
       const remainingMinutes = Math.ceil(
-        (user.blocked_until_password - new Date()) / (60 * 1000)
+        (user.block_until_password - new Date()) / (60 * 1000)
       );
       message = `Your account is blocked for incorrect password.Please try again after ${remainingMinutes} minute(s).`;
     } else {
       const attemptsRemaining = 3 - user.wrong_password_attempts;
-      messsage =
+      message =
         attemptsRemaining > 0
           ? `Invalid password, ${attemptsRemaining} attempts remaining`
           : `Invalid Login attempts exceeded, Please try again after 30 minutes`;
@@ -100,32 +101,33 @@ const refreshToken = async (req, res) => {
   if (!type || !refreshToken) {
     throw new BadRequestError("Invalid body");
   }
-
+  
   try {
-    let accessToken, newRefreshToken;
+    let tokens;
     if (type === "socket") {
-      ({ accessToken: accessToken, newRefreshToken } =
-        await generateRefreshTokens(
-          refreshToken,
-          process.env.REFRESH_SOCKET_TOKEN_SECRET,
-          process.env.REFRESH_SOCKET_TOKEN_EXPIRY,
-          process.env.SOCKET_TOKEN_SECRET,
-          process.env.SOCKET_TOKEN_EXPIRY
-        ));
+      tokens = await generateRefreshTokens(
+        refresh_token,
+        process.env.REFRESH_SOCKET_TOKEN_SECRET,
+        process.env.REFRESH_SOCKET_TOKEN_EXPIRY,
+        process.env.SOCKET_TOKEN_SECRET,
+        process.env.SOCKET_TOKEN_EXPIRY
+      );
     } else if (type === "app") {
-      ({ accessToken: accessToken, newRefreshToken } =
-        await generateRefreshTokens(
-          refreshToken,
-          process.env.REFRESH_TOKEN_SECRET,
-          process.env.REFRESH_SOCKET_TOKEN_EXPIRY,
-          process.env.JWT_SECRET,
-          process.env.ACCESS_TOKEN_EXPIRY
-        ));
+      tokens = await generateRefreshTokens(
+        refresh_token,
+        process.env.REFRESH_TOKEN_SECRET,
+        process.env.REFRESH_TOKEN_EXPIRY,
+        process.env.JWT_SECRET,
+        process.env.ACCESS_TOKEN_EXPIRY
+      );
     }
+    let accessToken = tokens.access_token;
+    let newRefreshToken = tokens.refresh_token;
 
     res
       .status(StatusCodes.OK)
       .json({ access_token: accessToken, refresh_token: newRefreshToken });
+      
   } catch (error) {
     console.error(error);
     throw new UnauthenticatedError("Invalid Token");

@@ -2,7 +2,7 @@ import { BadRequestError, UnauthenticatedError } from "../../errors/index.js";
 import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import { StatusCodes } from "http-status-codes";
-import User from "../../models/user.js";
+import User from "../../models/User.js";
 import jwksClient from "jwks-rsa";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);

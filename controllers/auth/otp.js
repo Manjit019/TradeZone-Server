@@ -1,7 +1,7 @@
 
 
-import User from '../../models/user.js';
-import OTP from '../../models/otp.js';
+import User from '../../models/User.js';
+import OTP from '../../models/Otp.js';
 import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError } from '../../errors/index.js';
@@ -52,7 +52,7 @@ const verifyOtp = async (req,res) => {
 
     const user = await User.findOne({email});
 
-    if(otp_type === 'email' && user){
+    if(otp_type === 'email' && !user){
         const register_token = jwt.sign({email},process.env.REGISTER_SECRET,{expiresIn : process.env.REGISTER_SECRET_EXPIRY});
 
         return res.status(StatusCodes.OK).json({msg : "OTP verified successfully",register_token});
@@ -64,7 +64,8 @@ const verifyOtp = async (req,res) => {
 
 const sendOtp = async (req,res) => {
     const {email,otp_type} = req.body;
-    if(!email,!otp_type) {
+    
+    if(!email || !otp_type) {
         throw new BadRequestError("All fields are required")
     };
     const user = await User.findOne({email});
