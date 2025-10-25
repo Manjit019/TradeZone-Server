@@ -15,7 +15,7 @@ const StockSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    lastDayTradePrice : {
+    lastDayTradedPrice : {
         type : Number,
         required : true
     },
@@ -33,6 +33,6 @@ const StockSchema = new mongoose.Schema({
     }
 })
 
-const Stock = mongoose.Schema('Stock',StockSchema);
+const Stock = mongoose.model('Stock',StockSchema);
 
 export default Stock;

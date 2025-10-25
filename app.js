@@ -7,11 +7,14 @@ import YAML from 'yamljs';
 import cors from 'cors';
 import connectDB from './config/connect.js';
 import authRouter from './routes/auth.js';
+import stockRouter from './routes/stocks.js';
 import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
+import authenticateSocketUser from './middleware/socketAuth.js'
 import { home } from './controllers/home.js';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,6 +36,7 @@ app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocument));
 
 //Routes
 app.use('/auth',authRouter);
+app.use("/stocks",authenticateSocketUser,stockRouter);
 
 
 //middlewares
